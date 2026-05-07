@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
 
   const navLinks = [
     { name: 'Recordings', href: '/recordings' },
@@ -14,8 +17,32 @@ export default function Navbar() {
     { name: 'Archive', href: '/archive' },
   ];
 
+  useEffect(() => {
+    const footerContainer = document.querySelector('footer > div.mx-auto');
+    if (!footerContainer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '0px',
+      }
+    );
+
+    observer.observe(footerContainer);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 z-100 w-fit">
+    <nav 
+      ref={navRef}
+      className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-100 w-fit transition-all duration-200 ${
+        isFooterVisible ? 'navbar-lifted' : ''
+      }`}
+    >
       {/* 
           Lighter transparency allows the gradient background to shine through
           while maintaining readability with backdrop-blur
@@ -47,7 +74,7 @@ export default function Navbar() {
         <Link href="/" className="pr-6 border-r border-white/30 flex items-center">
           <Image 
             src="/icon0.svg" 
-            alt="domidb Logo" 
+            alt="Mangulina.do Logo" 
             width={28} 
             height={28} 
             className="w-7 h-7 object-contain"

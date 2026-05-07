@@ -126,7 +126,7 @@ export default function ArchiveContent() {
               Consulting Ledger...
             </div>
           ) : songs.length > 0 ? (
-            <div className="divide-y divide-black/[0.04]">
+            <div className="divide-y divide-black/4">
               {songs.map((song) => (
                 <div key={song.id} className="py-4 flex items-center group px-2 -mx-2 hover:bg-wikicrimson/[0.03] transition-all border-l-0 hover:border-l-4 border-wikicrimson">
                   

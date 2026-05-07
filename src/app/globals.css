@@ -5,9 +5,9 @@
 ========================= */
 :root {
   /* Official Branding */
-  --color-wikicrimson: #8B0000;
+  --color-wikicrimson: #CE1126;
   --color-flagblue: #002D62;
-  --color-canvas: #FAF9F6;
+  --color-canvas: #FFFFFF;
   --color-ink: #1d1d1f;
 
   /* Typography */
@@ -35,6 +35,10 @@
    COMPONENTS
 ========================= */
 @layer components {
+  .navbar-lifted {
+    bottom: 22rem !important;
+  }
+
   .btn-archive {
     border: 1px solid rgba(0, 0, 0, 0.1);
     background: rgba(255, 255, 255, 0.4);
